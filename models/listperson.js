@@ -3,23 +3,41 @@ import Student from "./student.js";
 import Employee from "./employee.js";
 import Customer from "./customer.js";
 class ListPerson {
-    constructor(_list = []) {
+    constructor(_list = [], _filter = {}) {
         this.list = _list;
+        this.filter = _filter;
     }
 
     findPerson(code) {
-        this.list.findIndex(e => e.code === code);
+        return this.list.findIndex(e => e.code === code);
     }
 
     findPersonByAttribute(keySearch) {
         const keys = {
-            "type": "",
             ...keySearch
         }
         return this.list.filter(e => {
-            let flag = true;
-            Object.keys(keys).forEach(x => flag &&= (!keys[x] || convertStringSearch(e[x]).indexOf(convertStringSearch(keys[x])) > -1));
+            let flag = false;
+            Object.keys(keys).forEach(x => {
+
+                return flag ||= (!keys[x] || e[x] && convertStringSearch(e[x]).indexOf(convertStringSearch(keys[x])) > -1);
+            });
             return flag;
+        });
+    }
+
+    getList(option) {
+        const sort = {
+            column: "id",
+            asc: true,
+            ...option
+        };
+        const { column, asc } = sort;
+        return this.findPersonByAttribute(this.filter).sort((a, b) => {
+            if (isNaN(a[column]) || isNaN(b[column])) {
+                return asc ? a[column].localeCompare(b[column], 'vi', { sensitivity: 'base' }) : b[column].localeCompare(a[column], 'vi', { sensitivity: 'base' });
+            } else
+                return asc ? a[column] - b[column] : b[column] - a[column];
         });
     }
 
