@@ -28,6 +28,10 @@ const checkRangeNumber = (_number, _min, _max, _selector, _msgError) => {
     showMessage(_selector, "");
     return 1;
 }
+const checkEmail = (_string, _selector, _msgError) => {
+    regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return checkRegex(_string, regex, _selector, _msgError);
+}
 const checkStringLength = (_string, _min, _max, _selector, _msgError) => {
     let len = _string.trim().length;
     if (len < _min || len > Number(_max)) {

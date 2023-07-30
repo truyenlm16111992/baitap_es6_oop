@@ -87,7 +87,7 @@
                 </div>
                 <label for="cbType" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Loại người
                     dùng</label>
-                <select id="cbTypePersion"
+                <select id="cbPersonType"
                     class="inline bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5">
                     <option selected value="">Tất cả</option>
                     <option value="1">Sinh viên</option>
@@ -99,7 +99,7 @@
     </header>
     <section class="px-3">
         <!-- Modal toggle -->
-        <button data-modal-target="modalDetail" data-modal-toggle="modalDetail"
+        <button id="btnNew" data-modal-target="modalDetail" data-modal-toggle="modalDetail"
             class="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-0 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             type="button">
             Thêm mới
@@ -131,76 +131,85 @@
                         <div class="grid grid-cols-2 gap-3">
                             <div>
                                 <label for="tbCode" class="block mb-2 text-sm font-medium">Mã số</label>
-                                <input 
-                                    type="number" 
-                                    id="tbCode"
+                                <input type="hidden" name="id">
+                                <input type="number" id="tbCode"
                                     class="peer border block w-full p-2.5 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 invalid:bg-red-50 invalid:border-red-500 invalid:text-red-900 invalid:placeholder-red-700 text-sm rounded-lg invalid:focus:ring-red-500 invalid:focus:border-red-500"
-                                    placeholder="Mã số người dùng" 
-                                    onkeyup="eventErrorValidation(event)"
-                                    name="code"
-                                    data-error-target="#errorCode">
+                                    placeholder="Mã số người dùng" onkeyup="eventErrorValidation(event)"
+                                    onblur="eventErrorValidation(event)" name="code" data-error-target="#errorCode">
                                 <p id="errorCode" class="peer-invalid:block hidden mt-2 text-sm text-red-600"></p>
                             </div>
                             <div></div>
                             <div>
                                 <label for="tbName" class="block mb-2 text-sm font-medium">Họ và tên</label>
-                                <input type="text" id="tbCode"
+                                <input type="text" id="tbName"
                                     class="peer border block w-full p-2.5 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 invalid:bg-red-50 invalid:border-red-500 invalid:text-red-900 invalid:placeholder-red-700 text-sm rounded-lg invalid:focus:ring-red-500 invalid:focus:border-red-500"
-                                    placeholder="Họ và tên">
-                                <p class="peer-invalid:block hidden mt-2 text-sm text-red-600"></p>
+                                    placeholder="Họ và tên" onkeyup="eventErrorValidation(event)"
+                                    onblur="eventErrorValidation(event)" name="name" data-error-target="#errorName">
+                                <p id="errorName" class="peer-invalid:block hidden mt-2 text-sm text-red-600"></p>
                             </div>
                             <div>
                                 <label for="tbEmail" class="block mb-2 text-sm font-medium">Email</label>
                                 <input type="email" id="tbEmail"
                                     class="peer border block w-full p-2.5 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 invalid:bg-red-50 invalid:border-red-500 invalid:text-red-900 invalid:placeholder-red-700 text-sm rounded-lg invalid:focus:ring-red-500 invalid:focus:border-red-500"
-                                    placeholder="Email">
-                                <p class="peer-invalid:block hidden mt-2 text-sm text-red-600"></p>
+                                    placeholder="Email" onkeyup="eventErrorValidation(event)"
+                                    onblur="eventErrorValidation(event)" name="email" data-error-target="#errorEmail">
+                                <p id="errorEmail" class="peer-invalid:block hidden mt-2 text-sm text-red-600"></p>
                             </div>
                             <div class="col-span-2">
                                 <label for="tbAddress" class="block mb-2 text-sm font-medium">Địa chỉ</label>
                                 <input type="text" id="tbAddress"
                                     class="peer border block w-full p-2.5 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 invalid:bg-red-50 invalid:border-red-500 invalid:text-red-900 invalid:placeholder-red-700 text-sm rounded-lg invalid:focus:ring-red-500 invalid:focus:border-red-500"
-                                    placeholder="Địa chỉ">
+                                    placeholder="Địa chỉ" name="address">
                                 <p class="peer-invalid:block hidden mt-2 text-sm text-red-600"></p>
                             </div>
                             <div class="col-span-2 space-x-2">
                                 <label for="tbAddress" class="block mb-2 text-sm font-medium">Loại người dùng</label>
-                                <input id="chxStudent" class="peer/student" type="radio" name="type" checked />
-                                <label for="chxStudent" class="peer-checked/student:text-blue-500 hover:underline hover:cursor-pointer">Sinh viên</label>
-                                <input id="chxEmployee" class="peer/employee" type="radio" name="type" />
-                                <label for="chxEmployee" class="peer-checked/employee:text-blue-500 hover:underline hover:cursor-pointer">Giảng viên</label>
-                                <input id="chxCustomer" class="peer/customer" type="radio" name="type" />
-                                <label for="chxCustomer" class="peer-checked/customer:text-blue-500 hover:underline hover:cursor-pointer">Khách hàng</label>
+                                <input id="chxStudent" class="peer/student" type="radio" name="type" value="1"
+                                    checked />
+                                <label for="chxStudent"
+                                    class="peer-checked/student:text-blue-500 hover:underline hover:cursor-pointer">Sinh
+                                    viên</label>
+                                <input id="chxEmployee" class="peer/employee" type="radio" name="type" value="2" />
+                                <label for="chxEmployee"
+                                    class="peer-checked/employee:text-blue-500 hover:underline hover:cursor-pointer">Giảng
+                                    viên</label>
+                                <input id="chxCustomer" class="peer/customer" type="radio" name="type" value="3" />
+                                <label for="chxCustomer"
+                                    class="peer-checked/customer:text-blue-500 hover:underline hover:cursor-pointer">Khách
+                                    hàng</label>
                                 <div class="!ml-0 mt-3 peer-checked/student:grid hidden grid-cols-3 gap-3">
                                     <div>
                                         <label for="tbMath" class="block mb-2 text-sm font-medium">Điểm toán</label>
                                         <input type="number" id="tbMath"
                                             class="peer border block w-full p-2.5 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 invalid:bg-red-50 invalid:border-red-500 invalid:text-red-900 invalid:placeholder-red-700 text-sm rounded-lg invalid:focus:ring-red-500 invalid:focus:border-red-500"
-                                            placeholder="Toán"
-                                            min="0"
-                                            max="10"
-                                            maxlength="1">
-                                        <p class="peer-invalid:block hidden mt-2 text-sm text-red-600"></p>
+                                            placeholder="Toán" min="0" max="10" maxlength="2"
+                                            onkeyup="eventErrorValidation(event)" onchange="eventErrorValidation(event)"
+                                            onblur="eventErrorValidation(event)" name="math"
+                                            data-error-target="#errorMath" data-person-type="1">
+                                        <p id="errorMath" class="peer-invalid:block hidden mt-2 text-sm text-red-600">
+                                        </p>
                                     </div>
                                     <div>
                                         <label for="tbPhysics" class="block mb-2 text-sm font-medium">Điểm lý</label>
                                         <input type="number" id="tbPhysics"
                                             class="peer border block w-full p-2.5 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 invalid:bg-red-50 invalid:border-red-500 invalid:text-red-900 invalid:placeholder-red-700 text-sm rounded-lg invalid:focus:ring-red-500 invalid:focus:border-red-500"
-                                            placeholder="Toán"
-                                            min="0"
-                                            max="10"
-                                            maxlength="1">
-                                        <p class="peer-invalid:block hidden mt-2 text-sm text-red-600"></p>
+                                            placeholder="Lý" min="0" max="10" maxlength="2"
+                                            onkeyup="eventErrorValidation(event)" onchange="eventErrorValidation(event)"
+                                            onblur="eventErrorValidation(event)" name="physics"
+                                            data-error-target="#errorPhysics" data-person-type="1">
+                                        <p id="errorPhysics"
+                                            class="peer-invalid:block hidden mt-2 text-sm text-red-600"></p>
                                     </div>
                                     <div>
                                         <label for="tbChemistry" class="block mb-2 text-sm font-medium">Điểm hóa</label>
                                         <input type="number" id="tbChemistry"
                                             class="peer border block w-full p-2.5 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 invalid:bg-red-50 invalid:border-red-500 invalid:text-red-900 invalid:placeholder-red-700 text-sm rounded-lg invalid:focus:ring-red-500 invalid:focus:border-red-500"
-                                            placeholder="Toán"
-                                            min="0"
-                                            max="10"
-                                            maxlength="1">
-                                        <p class="peer-invalid:block hidden mt-2 text-sm text-red-600"></p>
+                                            placeholder="Hóa" min="0" max="10" maxlength="2"
+                                            onkeyup="eventErrorValidation(event)" onchange="eventErrorValidation(event)"
+                                            onblur="eventErrorValidation(event)" name="chemistry"
+                                            data-error-target="#errorChemistry" data-person-type="1">
+                                        <p id="errorChemistry"
+                                            class="peer-invalid:block hidden mt-2 text-sm text-red-600"></p>
                                     </div>
                                 </div>
                                 <div class="!ml-0 mt-3 peer-checked/employee:grid hidden grid-cols-2 gap-3">
@@ -209,54 +218,65 @@
                                             việc</label>
                                         <input type="number" id="tbNumWorkDay"
                                             class="peer border block w-full p-2.5 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 invalid:bg-red-50 invalid:border-red-500 invalid:text-red-900 invalid:placeholder-red-700 text-sm rounded-lg invalid:focus:ring-red-500 invalid:focus:border-red-500"
-                                            placeholder="Số ngày làm việc">
-                                        <p class="peer-invalid:block hidden mt-2 text-sm text-red-600"></p>
+                                            placeholder="Số ngày làm việc" min="0" onkeyup="eventErrorValidation(event)"
+                                            onchange="eventErrorValidation(event)" onblur="eventErrorValidation(event)"
+                                            name="numWorkDay" data-error-target="#errorNumWorkDay" data-person-type="2">
+                                        <p id="errorNumWorkDay"
+                                            class="peer-invalid:block hidden mt-2 text-sm text-red-600"></p>
                                     </div>
                                     <div>
                                         <label for="tbSalary" class="block mb-2 text-sm font-medium">Lương theo
                                             ngày</label>
                                         <input type="number" id="tbSalary"
                                             class="peer border block w-full p-2.5 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 invalid:bg-red-50 invalid:border-red-500 invalid:text-red-900 invalid:placeholder-red-700 text-sm rounded-lg invalid:focus:ring-red-500 invalid:focus:border-red-500"
-                                            placeholder="Lương theo ngày">
-                                        <p class="peer-invalid:block hidden mt-2 text-sm text-red-600"></p>
+                                            placeholder="Lương theo ngày" min="0" onkeyup="eventErrorValidation(event)"
+                                            onchange="eventErrorValidation(event)" onblur="eventErrorValidation(event)"
+                                            name="salary" data-error-target="#errorSalary" data-person-type="2">
+                                        <p id="errorSalary" class="peer-invalid:block hidden mt-2 text-sm text-red-600">
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="!ml-0 mt-3 peer-checked/customer:grid hidden grid-cols-2 gap-3">
                                     <div>
-                                        <label for="tbCompany" class="block mb-2 text-sm font-medium">Tên công ty</label>
+                                        <label for="tbCompany" class="block mb-2 text-sm font-medium">Tên công
+                                            ty</label>
                                         <input type="text" id="tbCompany"
                                             class="peer border block w-full p-2.5 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 invalid:bg-red-50 invalid:border-red-500 invalid:text-red-900 invalid:placeholder-red-700 text-sm rounded-lg invalid:focus:ring-red-500 invalid:focus:border-red-500"
-                                            placeholder="Tên công ty">
-                                        <p class="peer-invalid:block hidden mt-2 text-sm text-red-600"></p>
+                                            placeholder="Tên công ty" onkeyup="eventErrorValidation(event)"
+                                            onblur="eventErrorValidation(event)" name="company"
+                                            data-error-target="#errorCompany" data-person-type="3">
+                                        <p id="errorCompany"
+                                            class="peer-invalid:block hidden mt-2 text-sm text-red-600"></p>
                                     </div>
                                     <div>
-                                        <label for="tbTotalBillAmount" class="block mb-2 text-sm font-medium">Trị giá hóa đơn</label>
+                                        <label for="tbTotalBillAmount" class="block mb-2 text-sm font-medium">Trị giá
+                                            hóa đơn</label>
                                         <input type="number" id="tbTotalBillAmount"
                                             class="peer border block w-full p-2.5 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 invalid:bg-red-50 invalid:border-red-500 invalid:text-red-900 invalid:placeholder-red-700 text-sm rounded-lg invalid:focus:ring-red-500 invalid:focus:border-red-500"
-                                            placeholder="Trị giá hóa đơn">
-                                        <p class="peer-invalid:block hidden mt-2 text-sm text-red-600"></p>
+                                            placeholder="Trị giá hóa đơn" min="0" onkeyup="eventErrorValidation(event)"
+                                            onchange="eventErrorValidation(event)" onblur="eventErrorValidation(event)"
+                                            name="totalBillAmount" data-error-target="#errorTotalBillAmount"
+                                            data-person-type="3">
+                                        <p id="errorTotalBillAmount"
+                                            class="peer-invalid:block hidden mt-2 text-sm text-red-600"></p>
                                     </div>
                                     <div class="col-span-2">
                                         <label for="tbReview" class="block mb-2 text-sm font-medium">Đánh giá</label>
-                                        <textarea
-                                            id="tbReview"
+                                        <textarea id="tbReview"
                                             class="peer border block w-full p-2.5 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 invalid:bg-red-50 invalid:border-red-500 invalid:text-red-900 invalid:placeholder-red-700 text-sm rounded-lg invalid:focus:ring-red-500 invalid:focus:border-red-500"
-                                            placeholder="Đánh giá"></textarea>
+                                            placeholder="Đánh giá" name="review" data-person-type="3"></textarea>
                                         <p class="peer-invalid:block hidden mt-2 text-sm text-red-600"></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <script>
-                        //document.getElementById("tbCode").setCustomValidity("Invalid field.");
-                    </script>
                     <!-- Modal footer -->
                     <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b">
-                        <button type="button"
+                        <button id="btnSave" type="button"
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-0 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Lưu
                             lại</button>
-                        <button data-modal-hide="modalDetail" type="button"
+                        <button id="btnClose" data-modal-hide="modalDetail" type="button"
                             class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-0 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Đóng</button>
                     </div>
                 </div>
@@ -265,11 +285,11 @@
         <div class="rounded-md shadow-md bg-white">
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-left text-gray-500">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 text-center">
                         <tr>
-                            <th scope="col" class="px-6 py-3">
-                                <div class="flex items-center">
-                                    Color
+                            <th scope="col" class="px-2 py-1 w-[80px]">
+                                <div class="flex justify-center items-center">
+                                    Mã số
                                     <a href="#"><svg class="w-3 h-3 ml-1.5" aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                             <path
@@ -277,9 +297,9 @@
                                         </svg></a>
                                 </div>
                             </th>
-                            <th scope="col" class="px-6 py-3">
-                                <div class="flex items-center">
-                                    Color
+                            <th scope="col" class="px-2 py-1 min-w-[180px]">
+                                <div class="flex justify-center items-center">
+                                    Họ và tên
                                     <a href="#"><svg class="w-3 h-3 ml-1.5" aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                             <path
@@ -287,9 +307,9 @@
                                         </svg></a>
                                 </div>
                             </th>
-                            <th scope="col" class="px-6 py-3">
-                                <div class="flex items-center">
-                                    Category
+                            <th scope="col" class="px-2 py-1 w-[200px]">
+                                <div class="flex justify-center items-center">
+                                    Email
                                     <a href="#"><svg class="w-3 h-3 ml-1.5" aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                             <path
@@ -297,9 +317,9 @@
                                         </svg></a>
                                 </div>
                             </th>
-                            <th scope="col" class="px-6 py-3">
-                                <div class="flex items-center">
-                                    Price
+                            <th scope="col" class="px-2 py-1 min-w-[250px]">
+                                <div class="flex justify-center items-center">
+                                    Địa chỉ
                                     <a href="#"><svg class="w-3 h-3 ml-1.5" aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                             <path
@@ -307,74 +327,60 @@
                                         </svg></a>
                                 </div>
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" class="px-2 py-1 w-[80px]">
+                                <div class="flex justify-center items-center">
+                                    Loại
+                                    <a href="#"><svg class="w-3 h-3 ml-1.5" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                        </svg></a>
+                                </div>
+                            </th>
+                            <th scope="col" class="px-2 py-1 w-[50px]">
+                                <div class="flex justify-center items-center">
+                                    Điểm TB
+                                    <a href="#"><svg class="w-3 h-3 ml-1.5" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                        </svg></a>
+                                </div>
+                            </th>
+                            <th scope="col" class="px-2 py-1 w-[120px]">
+                                <div class="flex justify-center items-center">
+                                    Lương
+                                    <a href="#"><svg class="w-3 h-3 ml-1.5" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                        </svg></a>
+                                </div>
+                            </th>
+                            <th scope="col" class="px-6 py-3 min-w-[150px]">
+                                <div class="flex items-center">
+                                    Công ty
+                                    <a href="#"><svg class="w-3 h-3 ml-1.5" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                        </svg></a>
+                                </div>
+                            </th>
+                            <th scope="col" class="px-6 py-3 w-[60px]">
                                 <span class="sr-only">Edit</span>
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Apple MacBook Pro 17"
-                            </th>
-                            <td class="px-6 py-4">
-                                Silver
-                            </td>
-                            <td class="px-6 py-4">
-                                Laptop
-                            </td>
-                            <td class="px-6 py-4">
-                                $2999
-                            </td>
-                            <td class="px-6 py-4 text-right">
-                                <a href="#"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Microsoft Surface Pro
-                            </th>
-                            <td class="px-6 py-4">
-                                White
-                            </td>
-                            <td class="px-6 py-4">
-                                Laptop PC
-                            </td>
-                            <td class="px-6 py-4">
-                                $1999
-                            </td>
-                            <td class="px-6 py-4 text-right">
-                                <a href="#"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                            </td>
-                        </tr>
-                        <tr class="bg-white dark:bg-gray-800">
-                            <th scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Magic Mouse 2
-                            </th>
-                            <td class="px-6 py-4">
-                                Black
-                            </td>
-                            <td class="px-6 py-4">
-                                Accessories
-                            </td>
-                            <td class="px-6 py-4">
-                                $99
-                            </td>
-                            <td class="px-6 py-4 text-right">
-                                <a href="#"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                            </td>
-                        </tr>
+                    <tbody id="dtList" class="text-center">
+
                     </tbody>
                 </table>
             </div>
         </div>
     </section>
+    <!-- Axios  -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- Flowbite  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
     <!-- Main Script  -->
